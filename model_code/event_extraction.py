@@ -2654,10 +2654,10 @@ def generate_chat_gpt_output(
                 dummy_id = re.findall(r"\d+", flow["from_event"]["object"])
                 from_event_text = f"join {dummy_id[0]}"
         if not from_event_text:
-            # If the event is not start None or a Dummy node it should be in 
+            # If the event is not start None or a Dummy node it should be in
             # the original event list
             from_event_id = original_event_list.index(flow["from_event"])
-            # We find the corresponding corrected event description created by 
+            # We find the corresponding corrected event description created by
             # ChatGPT
             from_event_text = [
                 event
@@ -2822,10 +2822,6 @@ if __name__ == "__main__":
         extract_events_for_article
     )
 
-    document_data["reduced_sentence_information"] = document_data[
-        "sentence_information"
-    ].apply(generate_chat_gpt_input)
-
     document_data["sentence_information"] = document_data["sentence_information"].apply(
         marker_detection
     )
@@ -2851,10 +2847,6 @@ if __name__ == "__main__":
     )
 
     document_data["flows"] = document_data["sentence_information"].apply(build_flows)
-
-    document_data["reduced_flows"] = document_data["flows"].apply(
-        generate_chat_gpt_output
-    )
 
     path_to_output = os.path.join(os.path.abspath(__file__), "../../flows/")
 
